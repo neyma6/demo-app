@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +32,7 @@ public class UserService {
     public boolean save(Person person, String father, String mother) {
         try {
             boolean success = userRepository.save(new User(person.getName(),
-                convertLocalDateToDate(person),
+                person.getDateOfBirth(),
                 Gender.find(person.getGender())));
             if (success && !StringUtils.isEmpty(father)) {
                 saveRelation(person.getName(), father);
@@ -66,20 +63,10 @@ public class UserService {
         return convertUserToPerson(userRepository.getCousins(name));
     }
 
-    private LocalDate convertDateToLocalDate(User user) {
-        return user.getDateOfBirth().toInstant()
-        .atZone(ZoneId.systemDefault())
-        .toLocalDate();
-    }
-
-    private Date convertLocalDateToDate(Person person) {
-        return Date.from(person.getDateOfBirth().atStartOfDay(ZoneId.systemDefault()).toInstant());
-    }
-
     private List<Person> convertUserToPerson(List<User> users) {
         return users.stream()
             .map(user -> new Person(user.getName(),
-                convertDateToLocalDate(user), user.getGender().getGender()))
+                user.getDateOfBirth(), user.getGender().getGender()))
             .collect(Collectors.toList());
     }
 

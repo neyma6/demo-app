@@ -2,8 +2,9 @@ package com.example.demo.repository.entity;
 
 
 import com.arangodb.entity.DocumentField;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class User {
 
@@ -11,13 +12,14 @@ public class User {
     private String id;
 
     private String name;
-    private Date dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
     private Gender gender;
 
     public User() {
     }
 
-    public User(String name, Date dateOfBirth, Gender gender) {
+    public User(String name, LocalDate dateOfBirth, Gender gender) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
@@ -27,7 +29,7 @@ public class User {
         return name;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
