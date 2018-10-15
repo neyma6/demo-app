@@ -43,4 +43,9 @@ public class PersonController {
     public List<Person> getGrandParents(@PathVariable("gender") String gender, @RequestParam("name") String name) {
         return userService.getGrandParent(name, gender);
     }
+
+    @GetMapping("/cousins")
+    public List<Person> getCousins(@RequestParam("name") String name) {
+        return userService.getCousins(name);
+    }
 }

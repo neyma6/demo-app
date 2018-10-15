@@ -62,6 +62,10 @@ public class UserService {
         return convertUserToPerson(userRepository.getGrandParents(name, Gender.find(gender)));
     }
 
+    public List<Person> getCousins(String name) {
+        return convertUserToPerson(userRepository.getCousins(name));
+    }
+
     private LocalDate convertDateToLocalDate(User user) {
         return user.getDateOfBirth().toInstant()
         .atZone(ZoneId.systemDefault())

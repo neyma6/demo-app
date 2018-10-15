@@ -75,7 +75,27 @@ public class UserRepository extends BaseRepository<User> {
                 "FILTER entity.name == @name " +
                 "FOR grandParent IN 2..2 INBOUND entity @@edge " +
                 "FILTER grandParent.gender == @gender " +
+                "SORT grandParent.dateOfBirth ASC " +
                 "RETURN grandParent", bindVars,  null, User.class);
+        return userCursor.asListRemaining();
+    }
+
+    public List<User> getCousins(String name) {
+        Map<String, Object> bindVars = new MapBuilder()
+            .put("@vertex", arangoProperties.getVertexCollectionName())
+            .put("@edge", arangoProperties.getEdgeCollectionName())
+            .put("name", name)
+            .get();
+
+        ArangoCursor<User> userCursor = getArangoProvider().getArangoDatabase()
+            .query("FOR entity IN @@vertex " +
+                "FILTER entity.name == @name " +
+                "FOR parent IN 1..1 INBOUND entity @@edge " +
+                "LET siblings = (FOR child IN 1..1 OUTBOUND parent @@edge RETURN child) " +
+                "FOR grandParent IN 1..1 INBOUND parent @@edge " +
+                "FOR cousin IN 2..2 OUTBOUND grandParent @@edge " +
+                "FILTER cousin NOT IN siblings " +
+                "RETURN cousin", bindVars,  null, User.class);
         return userCursor.asListRemaining();
     }
 }
