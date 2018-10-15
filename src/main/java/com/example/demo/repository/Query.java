@@ -2,17 +2,17 @@ package com.example.demo.repository;
 
 public class Query {
 
-    public static final String GET_ALL_USERS = "FOR entity IN @@collection RETURN entity";
-    public static final String GET_USER_KEY_BY_USER_NAME = "FOR entity IN @@collection FILTER entity.name == @name RETURN entity._key";
-    public static final String GET_USERS_BY_GENDER = "FOR entity IN @@collection FILTER entity.gender == @gender RETURN entity";
-    public static final String GET_GRANDPARENTS_BY_GENDER =
+    static final String GET_ALL_USERS = "FOR entity IN @@collection RETURN entity";
+    static final String GET_USER_KEY_BY_USER_NAME = "FOR entity IN @@collection FILTER entity.name == @name RETURN entity._key";
+    static final String GET_USERS_BY_GENDER = "FOR entity IN @@collection FILTER entity.gender == @gender RETURN entity";
+    static final String GET_GRANDPARENTS_BY_GENDER =
         "FOR entity IN @@vertex " +
             "FILTER entity.name == @name " +
             "FOR grandParent IN 2..2 INBOUND entity @@edge " +
             "FILTER grandParent.gender == @gender " +
             "SORT grandParent.dateOfBirth ASC " +
             "RETURN grandParent";
-    public static final String GET_COUSINS =
+    static final String GET_COUSINS =
         "FOR entity IN @@vertex " +
             "FILTER entity.name == @name " +
             "FOR parent IN 1..1 INBOUND entity @@edge " +

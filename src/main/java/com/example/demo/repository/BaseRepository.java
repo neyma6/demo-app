@@ -14,13 +14,13 @@ public abstract class BaseRepository<T> {
 
     private final ArangoProvider arangoProvider;
 
-    public BaseRepository(ArangoProvider arangoProvider) {
+    BaseRepository(ArangoProvider arangoProvider) {
         this.arangoProvider = arangoProvider;
     }
 
     public abstract boolean save(T document);
 
-    protected boolean save(ArangoCollection arangoCollection, T document) {
+    boolean save(ArangoCollection arangoCollection, T document) {
         DocumentImportOptions importOptions = new DocumentImportOptions();
         importOptions.waitForSync(Boolean.FALSE);
         importOptions.onDuplicate(DocumentImportOptions.OnDuplicate.update);
@@ -35,7 +35,7 @@ public abstract class BaseRepository<T> {
         return nonNull(entity) && entity.getErrors().compareTo(0) == 0;
     }
 
-    protected ArangoProvider getArangoProvider() {
+    ArangoProvider getArangoProvider() {
         return arangoProvider;
     }
 }
