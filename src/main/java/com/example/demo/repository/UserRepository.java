@@ -12,6 +12,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.demo.repository.Query.GET_ALL_USERS;
+import static com.example.demo.repository.Query.GET_COUSINS;
+import static com.example.demo.repository.Query.GET_GRANDPARENTS_BY_GENDER;
+import static com.example.demo.repository.Query.GET_USERS_BY_GENDER;
+import static com.example.demo.repository.Query.GET_USER_KEY_BY_USER_NAME;
+
 @Repository
 public class UserRepository extends BaseRepository<User> {
 
@@ -29,7 +35,9 @@ public class UserRepository extends BaseRepository<User> {
             .put("@collection", arangoProperties.getVertexCollectionName())
             .get();
         ArangoCursor<User> userCursor = getArangoProvider().getArangoDatabase()
-            .query("FOR entity IN @@collection RETURN entity", bindVars, null, User.class);
+            .query(
+                GET_ALL_USERS,
+                bindVars, null, User.class);
         return userCursor.asListRemaining();
     }
 
@@ -45,7 +53,9 @@ public class UserRepository extends BaseRepository<User> {
             .get();
 
         ArangoCursor<String> userCursor = getArangoProvider().getArangoDatabase()
-            .query("FOR entity IN @@collection FILTER entity.name == @name RETURN entity._key", bindVars,  null, String.class);
+            .query(
+                GET_USER_KEY_BY_USER_NAME,
+                bindVars, null, String.class);
 
         return userCursor.asListRemaining().stream().findFirst().orElse("");
     }
@@ -57,7 +67,9 @@ public class UserRepository extends BaseRepository<User> {
             .get();
 
         ArangoCursor<User> userCursor = getArangoProvider().getArangoDatabase()
-            .query("FOR entity IN @@collection FILTER entity.gender == @gender RETURN entity", bindVars,  null, User.class);
+            .query(
+                GET_USERS_BY_GENDER,
+                bindVars, null, User.class);
         return userCursor.asListRemaining();
     }
 
@@ -71,12 +83,9 @@ public class UserRepository extends BaseRepository<User> {
             .get();
 
         ArangoCursor<User> userCursor = getArangoProvider().getArangoDatabase()
-            .query("FOR entity IN @@vertex " +
-                "FILTER entity.name == @name " +
-                "FOR grandParent IN 2..2 INBOUND entity @@edge " +
-                "FILTER grandParent.gender == @gender " +
-                "SORT grandParent.dateOfBirth ASC " +
-                "RETURN grandParent", bindVars,  null, User.class);
+            .query(
+                GET_GRANDPARENTS_BY_GENDER,
+                bindVars, null, User.class);
         return userCursor.asListRemaining();
     }
 
@@ -88,14 +97,9 @@ public class UserRepository extends BaseRepository<User> {
             .get();
 
         ArangoCursor<User> userCursor = getArangoProvider().getArangoDatabase()
-            .query("FOR entity IN @@vertex " +
-                "FILTER entity.name == @name " +
-                "FOR parent IN 1..1 INBOUND entity @@edge " +
-                "LET siblings = (FOR child IN 1..1 OUTBOUND parent @@edge RETURN child) " +
-                "FOR grandParent IN 1..1 INBOUND parent @@edge " +
-                "FOR cousin IN 2..2 OUTBOUND grandParent @@edge " +
-                "FILTER cousin NOT IN siblings " +
-                "RETURN cousin", bindVars,  null, User.class);
+            .query(
+                GET_COUSINS,
+                bindVars, null, User.class);
         return userCursor.asListRemaining();
     }
 }
