@@ -1,0 +1,102 @@
+{
+  "className": "com.example.demo.service.UserServiceTest",
+  "name": "User Service",
+  "scenarios": [
+    {
+      "className": "com.example.demo.service.UserServiceTest",
+      "testMethodName": "get_all_should_provide_every_person",
+      "description": "get all should provide every person",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "casesAsTable": false,
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "init mocks",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "init mocks"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 654080820
+            },
+            {
+              "name": "user repository stubbed",
+              "words": [
+                {
+                  "value": "user repository stubbed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 134387692
+            },
+            {
+              "name": "a user service",
+              "words": [
+                {
+                  "value": "a user service"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 562461
+            },
+            {
+              "name": "call get all",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "call get all"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 17957334
+            },
+            {
+              "name": "response is valid",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "response is valid"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 7287795
+            },
+            {
+              "name": "user repository invoked",
+              "words": [
+                {
+                  "value": "user repository invoked"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 18953436
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "success": true,
+          "durationInNanos": 900388103
+        }
+      ],
+      "durationInNanos": 900388103,
+      "executionStatus": "SUCCESS"
+    }
+  ],
+  "tagMap": {}
+}

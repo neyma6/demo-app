@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.database.ArangoProperties;
 import com.example.demo.domain.Person;
 import com.example.demo.repository.RelationRepository;
 import com.example.demo.repository.UserRepository;
@@ -19,14 +18,12 @@ public class UserService {
     private final RelationService relationService;
     private final UserRepository userRepository;
     private final RelationRepository relationRepository;
-    private final ArangoProperties arangoProperties;
 
     @Autowired
-    public UserService(RelationService relationService, UserRepository userRepository, RelationRepository relationRepository, ArangoProperties arangoProperties) {
+    public UserService(RelationService relationService, UserRepository userRepository, RelationRepository relationRepository) {
         this.relationService = relationService;
         this.userRepository = userRepository;
         this.relationRepository = relationRepository;
-        this.arangoProperties = arangoProperties;
     }
 
     public boolean save(Person person, String father, String mother) {

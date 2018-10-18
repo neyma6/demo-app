@@ -14,9 +14,9 @@ public class Relation {
     @DocumentField(DocumentField.Type.TO)
     private String child;
 
-    public Relation(String parent, String child, ArangoProperties arangoProperties) {
-        this.parent = arangoProperties.getVertexCollectionName() + "/" + parent;
-        this.child = arangoProperties.getVertexCollectionName() + "/" + child;
+    public Relation(String parent, String child) {
+        this.parent = User.class.getSimpleName() + "/" + parent;
+        this.child = User.class.getSimpleName() + "/" + child;
     }
 
     public String getParent() {

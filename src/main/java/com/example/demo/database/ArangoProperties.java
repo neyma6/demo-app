@@ -16,9 +16,6 @@ public class ArangoProperties {
     private String host;
     private Integer maxConnections;
     private String dataBaseName;
-    private String vertexCollectionName;
-    private String edgeCollectionName;
-    private String graphName;
 
     public String getName() {
         return name;
@@ -90,29 +87,5 @@ public class ArangoProperties {
 
     public void setDataBaseName(String dataBaseName) {
         this.dataBaseName = dataBaseName;
-    }
-
-    public String getVertexCollectionName() {
-        return vertexCollectionName;
-    }
-
-    public void setVertexCollectionName(String vertexCollectionName) {
-        this.vertexCollectionName = vertexCollectionName;
-    }
-
-    public String getEdgeCollectionName() {
-        return edgeCollectionName;
-    }
-
-    public void setEdgeCollectionName(String edgeCollectionName) {
-        this.edgeCollectionName = edgeCollectionName;
-    }
-
-    public String getGraphName() {
-        return graphName;
-    }
-
-    public void setGraphName(String graphName) {
-        this.graphName = graphName;
     }
 }

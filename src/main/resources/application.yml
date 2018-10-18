@@ -19,7 +19,4 @@ database:
   password: ""
   connectionTtl: 30000
   maxConnections: 50
-  dataBaseName: demo_2
-  vertexCollectionName: users_2
-  edgeCollectionName: relations_2
-  graphName: user_graph_2
+  dataBaseName: demo_3
